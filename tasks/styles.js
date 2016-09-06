@@ -50,13 +50,23 @@ module.exports = function(options, gulp) {
       `!**/_*.scss`
     ];
   } else if (cfg.dir_less) {
-    compileType = 'less';
-    compileCommon = `${cfg.dir_less}/**/_*.less`;
-    compileFile = [
-      `${cfg.dir_less}/${cfg.watchPublicForBasename}.less`,
-      `!**/_*.less`
-    ];
+    if (cfg.watchAllLess) {
+      compileType = 'less';
+      compileCommon = `${cfg.dir_less}/**/*.less`;
+      compileFile = [
+        `${cfg.dir_less}/${cfg.watchPublicForBasename}.less`,
+        `!**/_*.less`
+      ];
+    } else {
+      compileType = 'less';
+      compileCommon = `${cfg.dir_less}/**/_*.less`;
+      compileFile = [
+        `${cfg.dir_less}/${cfg.watchPublicForBasename}.less`,
+        `!**/_*.less`
+      ];
+    }
   }
+
   var srcFile; // 预处理文件
   // less
   // gulp less --ui --sourcemaps off
