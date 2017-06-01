@@ -1,3 +1,13 @@
 @import './_utils.scss';
 
-@include oocss-gutter;
+@include oocss-gutter($gutterSize:5px, $gutterCount: 6);
+@include font-smoothing;
+@include placeholder(#999);
+
+.cf{
+  @extend %cf;
+}
+
+.ellipsis{
+  @extend %ellipsis;
+}
