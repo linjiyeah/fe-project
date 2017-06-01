@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>页面导航</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="lib/jstree/themes/default/style.css">
+    <style>
+      /* 页面导航 */
+      .docs-body {
+        margin: 0;
+      }
+
+      .docs-body > ul {
+        padding: 0;
+        margin: 0;
+      }
+
+      .doc-header li,
+      .doc-header ul {
+        list-style: none;
+      }
+
+      .docs-body a {
+        text-decoration: none;
+      }
+
+      .docs-pages-guide-wrap {
+        overflow: hidden;
+      }
+
+      #J_DocsIframeView {
+        background: #fff;
+        display: none;
+      }
+
+      #J_DocsFixedBtns {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 20;
+      }
+
+      .jstree-default > .jstree-container-ul > .jstree-node {
+        width: 290px;
+        margin-right: 15px;
+        float: left;
+        background-image: none;
+        font-size: 14px;
+        overflow: hidden;
+      }
+
+      .docs-scan-mode #J_Jstree {
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.25) inset;
+        position: fixed;
+        z-index: 10;
+        top: 0;
+        left: 0;
+        font-size: 12px;
+        width: 230px;
+        height: 100%;
+        overflow: auto;
+        background: #fff;
+      }
+
+      .docs-body .jstree-container-ul {
+        padding: 5px 0 50px;
+        overflow: hidden;
+      }
+
+      .docs-scan-mode .jstree-default > .jstree-container-ul > .jstree-node {
+        font-size: 12px;
+        width: auto;
+        float: none;
+        background-image: inherit;
+      }
+
+      .docs-scan-mode #J_DocsIframeView {
+        display: block;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .docs-scan-mode .doc-header {
+        display: none;
+      }
+
+      /*==公用菜单==*/
+
+      .doc-header {
+        height: 36px;
+      }
+
+      .doc-header .inner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 36px;
+        min-width: 1100px;
+        background: #383d49;
+        z-index: 1000;
+      }
+
+      .doc-header .doc-nav {
+        margin: 0 auto;
+        width: 1100px;
+      }
+
+      .doc-header .doc-nav li {
+        position: relative;
+        float: left;
+        *display: inline;
+        margin-right: 20px;
+        *zoom: 1;
+      }
+
+      .doc-header .doc-nav a {
+        font: 14px/36px 'Microsoft Yahei';
+        color: #fff;
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+      }
+      .doc-header .doc-nav .current a,
+      .doc-header .doc-nav a:hover {
+        opacity: 1;
+        filter: alpha(opacity=100);
+        text-decoration: none;
+      }
+      .doc-header .doc-nav .current:after {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        margin-left: -4px;
+        content: '.';
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 5px 6px;
+        border-color: #fff transparent;
+        font-size: 0;
+      }
+
+      .doc-wrapper {
+        margin: 15px 20px 0;
+      }
+
+      /*==首页==*/
+
+      .doc-index {
+        font: 14px/1.5 'Microsoft Yahei';
+      }
+      .doc-index a,
+      .doc-index a:visited {
+        color: #006dd3;
+        text-decoration: none;
+      }
+      .doc-index a:hover {
+        color: #006dd3;
+        text-decoration: underline;
+      }
+
+      .doc-index h1 {
+        margin-bottom: 20px;
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      .doc-index p {
+        text-indent: 2em;
+        line-height: 2;
+      }
+
+      /*快速预览*/
+
+      .doc-view {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1100;
+        background: #fff;
+        overflow: hidden;
+      }
+
+      .doc-view iframe {
+        width: 100%;
+        height: 100%;
+      }
+
+      .doc-view .doc-nav-bar {
+        position: absolute;
+        right: -252px;
+        top: 5px;
+        width: 284px;
+        overflow: hidden;
+        *zoom: 1;
+        -webkit-transition: all 0.5s ease-in;
+        -moz-transition: all 0.5s ease-in;
+        -ms-transition: all 0.5s ease-in;
+        transition: all 0.5s ease-in;
+      }
+      .doc-view .doc-nav-bar.show,
+      .doc-view .doc-nav-bar:hover {
+        right: 0;
+      }
+
+      .doc-view .links {
+        float: left;
+      }
+
+      .doc-view .links a {
+        display: block;
+        margin: 0 -1px -1px 0;
+        width: 30px;
+        height: 30px;
+        border: 1px solid #d1d5d9;
+        background: #f4f5f8;
+        text-align: center;
+        font: 12px/30px 'Microsoft Yahei';
+        vertical-align: middle;
+      }
+      .doc-view .links a:hover {
+        text-decoration: none;
+        background: #fff;
+        color: #383d49;
+      }
+
+      .doc-view .links .close {
+        font-size: 18px;
+      }
+      .doc-view .links a:first-child {
+        border-top-left-radius: 5px;
+      }
+      .doc-view .links a:last-child {
+        border-bottom-left-radius: 5px;
+      }
+
+      .doc-view .doc-nav {
+        margin-left: 32px;
+        padding: 10px;
+        height: 400px;
+        background: #f4f5f8;
+        border: 1px solid #d1d5d9;
+        border-radius: 5px;
+        border-top-left-radius: 0;
+        box-shadow: 0 0 2px rgba(73, 56, 61, 0.3);
+        overflow: auto;
+      }
+
+      .doc-view .doc-nav label {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .doc-view .doc-nav input {
+        margin-top: 3px;
+        padding: 4px 10px;
+        width: 201px;
+        height: 19px;
+        border: 1px solid #dee2e5;
+        border-color: #bdc4ca #bdc4ca #dee2e5 #dee2e5;
+        line-height: 18px;
+        font-size: 12px;
+      }
+
+      .doc-view .doc-nav h2 {
+        margin-bottom: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+      }
+
+      .doc-view .doc-nav h2.open {
+        opacity: 1;
+        filter: alpha(opacity=100);
+      }
+
+      .doc-view .doc-nav .pages {
+        margin: 0 0 5px 10px;
+        display: none;
+      }
+
+      .doc-view .doc-nav li {
+        padding: 3px 0;
+      }
+
+      .doc-view .doc-nav a {
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+      }
+      .doc-view .doc-nav a:hover {
+        opacity: 1;
+        filter: alpha(opacity=100);
+      }
+
+      .doc-view .doc-nav .current a {
+        opacity: 1;
+        filter: alpha(opacity=100);
+        font-weight: bold;
+      }
+
+      /*快速预览——只有导航条*/
+
+      .doc-view.justbar {
+        position: static;
+        height: 0;
+        overflow: visible;
+      }
+
+      .doc-view.justbar .doc-nav-bar {
+        position: fixed;
+        top: 60px;
+      }
+
+      /*==公用ui控件==*/
+
+      .doc-ui h1,
+      .doc-ui h2,
+      .doc-ui h3,
+      .doc-ui h4,
+      .doc-ui h5,
+      .doc-ui h6 {
+        margin-bottom: 20px;
+        font-weight: bold;
+        color: #222;
+      }
+
+      .doc-ui h1 {
+        font-size: 26px;
+      }
+
+      .doc-ui h2 {
+        font-size: 20px;
+      }
+
+      .doc-ui p {
+        margin-bottom: 10px;
+      }
+
+      .doc-ui pre {
+        margin-bottom: 20px;
+        padding: 8px 15px;
+        max-height: 200px;
+        background: #f8f8f8;
+        border-radius: 5px;
+        border: 1px solid #e5e5e5;
+        overflow-x: auto;
+        font-size: 12px;
+        white-space: pre-wrap;
+        *white-space: pre;
+        word-break: break-all;
+      }
+
+      .doc-ui table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .doc-ui td,
+      .doc-ui th {
+        text-align: left;
+        padding: 5px 10px;
+        border-bottom: 1px solid #e5e5e5;
+      }
+
+      .doc-ui .i-name {
+        margin-left: 5px;
+      }
+
+      .doc-example {
+        margin-bottom: 15px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(56, 61, 73, 0.05);
+        *zoom: 1;
+      }
+
+      .doc-example code {
+        display: block;
+        margin: 15px -15px -15px;
+        padding: 10px 20px;
+        max-height: 200px;
+        background: #fafafc;
+        border-radius: 0 0 4px 4px;
+        border-top: 1px solid #ddd;
+        overflow: auto;
+        font-size: 12px;
+        white-space: pre-wrap;
+        *white-space: pre;
+        word-break: break-all;
+      }
+
+      .doc-sidebar {
+        position: fixed;
+        *left: 20%;
+        width: 260px;
+      }
+
+      .doc-sidebar-nav {
+        margin: 30px 0 0 40px;
+        list-style-type: disc;
+      }
+      .doc-sidebar-nav a,
+      .doc-sidebar-nav a:visited {
+        color: #658ad0;
+      }
+
+      .doc-main {
+        margin-left: 280px;
+      }
+
+      .doc-footer {
+        position: fixed;
+        bottom: 50px;
+        width: 260px;
+        font-size: 12px;
+      }
+
+      /*==公用布局==*/
+
+      .doc-mod {
+        margin: 10px auto;
+        width: 1260px;
+        border: 1px solid #d7dcdf;
+        background: #fff;
+      }
+
+      .doc-mod > .hd {
+        padding: 0 20px;
+        height: 46px;
+        background: #fafafc;
+        border-bottom: 1px solid #e1e5e7;
+      }
+
+      .doc-mod > .hd > h2 {
+        display: inline;
+        font: bold 18px/46px 'Microsoft Yahei';
+      }
+
+      .doc-mod > .bd {
+        padding: 25px;
+        min-height: 120px;
+      }
+
+      /*模块分组*/
+
+      .doc-summary {}
+
+      .doc-summary > .hd {
+        padding: 0 20px;
+        height: 28px;
+        border-top: 1px solid #c6cdd3;
+        background: #f4f5f8;
+        font: bold 14px/28px 'Microsoft Yahei';
+        color: #383838;
+      }
+
+      .doc-summary > .bd {
+        padding: 10px 0;
+
+      }
+      .doc-summary:after {
+        content: "";
+        clear: both;
+        display: block;
+      }
+      .doc-summary > .bd.sep-3 {
+        width: 33.3%;
+        float: left;
+      }
+
+      /**/
+
+      #J_DocsFixedBtns {
+        width: 229px;
+        font-size: 12px;
+      }
+
+      #J_DocsFixedBtns a {
+        display: block;
+        float: left;
+        width: 33.33%;
+        height: 40px;
+        line-height: 40px;
+        background: #fff;
+        text-align: center;
+        color: #555;
+        border: 1px solid #ddd;
+        margin: 0 -1px;
+      }
+
+      /* ui.html */
+      .doc-ui-pre {}
+
+    </style>
+
+  </head>
+
+  <body class="docs-body">
+    <div class="doc-header">
+      <div class="inner">
+        <!--<ul class="doc-nav">
+          <li>
+            <a href="index.html">首页</a>
+          </li>
+          <li class="current">
+            <a href="pages-guide.html">页面导航</a>
+          </li>
+          <li>
+            <a href="ui.html">公用UI控件规范</a>
+          </li>
+          <li>
+            <a href="module.html">公用布局规范</a>
+          </li>
+          <li>
+            <a href="float.html">所有弹窗</a>
+          </li>
+        </ul>-->
+      </div>
+    </div>
+
+    <div class="doc-guide doc-wrapper">
+
+      <div id="J_DocsFixedBtns">
+        <a href="javascript:" id="J_ScanBtn">快速查看</a>
+        <!--<a href="javascript:" id="J_AttachBtn">固定</a>-->
+        <a href="javascript:" id="J_PrevBtn">上一个</a>
+        <a href="javascript:" id="J_NextBtn">下一个</a>
+      </div>
+      <div class="docs-pages-guide-wrap">
+
+        <dic id="J_Jstree" style=""></dic>
+
+        <iframe src="" id="J_DocsIframeView" frameborder="0"></iframe>
+
+      </div>
+
+    </div>
+
+    <script src="../dist/pages/pages_path.js"></script>
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/jstree/jstree.min.js"></script>
+
+    <script>
+      var scanModeFlag = !1;
+
+      $(function () {
+        var resizeFn = function () {
+          $('#J_DocsIframeView').css({
+            'width': $(window).width() - $('#J_Jstree').outerWidth()
+          });
+        };
+        $(window).resize(resizeFn);
+
+        //激活快速查看
+        $('#J_ScanBtn').click(function () {
+          scanModeFlag = !scanModeFlag;
+          $('body').toggleClass('docs-scan-mode');
+          resizeFn();
+        });
+
+        $('#J_Jstree').jstree({
+          'core': {
+            'data': pagesPath.data
+          }
+        }).on('changed.jstree', function (e, data) {
+          var i,
+            j,
+            r = [];
+          for (i = 0, j = data.selected.length; i < j; i++) {
+            r.push(data.instance.get_node(data.selected[i]));
+          }
+          //通过id寻找相对于全部树节点的数字索引
+          curNodeIndex = $('#' + r[0].id).index('.jstree-node.jstree-leaf');
+          var tarLink = r[0].a_attr.href;
+          if (scanModeFlag) {
+            $('#J_DocsIframeView').attr('src', r[0].a_attr.href);
+            return;
+          }
+          if (tarLink !== '#') {
+            window.open(r[0].a_attr.href);
+          }
+        }).on('loaded.jstree', function () {
+          $treeNodes = $('.jstree-node.jstree-leaf');
+        });
+
+        var $treeNodes;
+        var tuples = [
+          {
+            name: 'Prev',
+            add: -1
+          }, {
+            name: 'Next',
+            add: 1
+          }
+        ];
+        var curNodeIndex = -1; //存放当前节点
+        $.each(tuples, function (i, tuple) {
+          $('#J_' + tuple.name + 'Btn').click(function () {
+            curNodeIndex = curNodeIndex + tuple.add;
+            $treeNodes.eq(curNodeIndex).find('a').click();
+            console.log($treeNodes.eq(curNodeIndex))
+          });
+        });
+
+      });
+    </script>
+
+  </body>
+
+</html>

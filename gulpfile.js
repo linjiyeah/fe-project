@@ -1,23 +1,3 @@
-# UI自动化命令
-
-
-> 运行UI DEMO服务，页面预览及导航
-
-```shell
-gulp dev
-
-```
-> 压缩代码（于提交到svn或git前执行）
-
-```shell
-gulp build
-```
-
-
----
-创建 gulpfile.js
-
-```javascript
 require('babel-core/register');
 const gulp = require('gulp');
 const gulpTask = require('./gulp');
@@ -43,5 +23,3 @@ const config = {
 };
 
 gulpTask(config, gulp);
-
-```
