@@ -3,22 +3,20 @@
  * @author linjilin
  * @lastmodifiedDate 2016/07/18
  */
-var explore = require('../lib/explore');
+import explore from '../explore';
 var path = require('path');
 
 var spritesmith = require('gulp.spritesmith');
 var watch = require('gulp-watch');
 var mergeStream = require('merge-stream');
 
-module.exports = function(options, gulp) {
-  var opts = options;
-  var cfg = options.uiConfig;
+module.exports = function(cfg, gulp) {
 
   gulp.task('watch-sprites', () => {
     watch([
-      opts.uiConfig.dir_img + '/slice/**/*.png',
-      `${__dirname}/templates/sprites-less-template.handlebars`,
-      `${__dirname}/templates/sprites-sass-template.handlebars`
+      cfg.dir_img + '/slice/**/*.png',
+      path.resolve(__dirname,'../../templates/sprites-less-template.handlebars'),
+      path.resolve(__dirname,'../../templates/sprites-sass-template.handlebars')
     ], function(
       event) {
       gulp.start('sprites');
@@ -27,9 +25,9 @@ module.exports = function(options, gulp) {
 
   gulp.task('clean-sprites', function() {
     del.sync([
-      `${opts.uiConfig.dir_img}/sprites`,
-      // `${opts.uiConfig.dist_img}/sprites`,
-      `${opts.uiConfig.dir_sass||opts.uiConfig.dir_less}/sprites`
+      `${cfg.dir_img}/sprites`,
+      // `${cfg.dist_img}/sprites`,
+      `${cfg.dir_sass||cfg.dir_less}/sprites`
     ], {
       force: true //当输出的文件夹不在gulp服务的文件夹内时加上 force
     });
@@ -37,7 +35,7 @@ module.exports = function(options, gulp) {
 
   // sprites
   gulp.task('sprites', function() {
-    var list = explore(`${opts.uiConfig.dir_img}/slice`, {
+    var list = explore(`${cfg.dir_img}/slice`, {
       onlyDirectory: true
     });
     list.forEach(function(v, i) {
@@ -48,8 +46,8 @@ module.exports = function(options, gulp) {
       // 仅当有rem-前缀才进行rem的雪碧图拼合
       var spriteOptions = (function() {
         var obj = {};
-        var dir_sass = opts.uiConfig.dir_sass,
-          dir_less = opts.uiConfig.dir_less;
+        var dir_sass = cfg.dir_sass,
+          dir_less = cfg.dir_less;
         if (outputName.match(/-retina/)) {
           outputName = outputName.replace('-retina', '');
           obj.retinaSrcFilter = [v +
@@ -59,7 +57,8 @@ module.exports = function(options, gulp) {
         }
         // if (outputName.match(/-rem/)) {obj.cssHandlebarsHelpers = function(){};}
         temp = dir_sass ? 'sass' : 'less';
-        obj.cssTemplate = __dirname + `/templates/sprites-${temp}-template.handlebars`;
+
+        obj.cssTemplate = path.resolve(__dirname,`../../templates/sprites-${temp}-template.handlebars`);
         temp = dir_sass ? '.scss' : '.less';
         obj.imgName = `${outputName}.png`;
         obj.cssName = `_${outputName}${temp}`;
@@ -75,10 +74,10 @@ module.exports = function(options, gulp) {
       var imgStream = spriteData.img
         // .pipe(buffer())
         // .pipe(imagemin())
-        .pipe(gulp.dest(`${opts.uiConfig.dir_img}/sprites`));
+        .pipe(gulp.dest(`${cfg.distImg}/sprites`));
       var cssStream = spriteData.css
         // .pipe(buffer())
-        .pipe(gulp.dest(`${opts.uiConfig.dir_sass || opts.uiConfig.dir_less}/sprites`));
+        .pipe(gulp.dest(`${cfg.dir_sass || cfg.dir_less}/sprites`));
       return mergeStream(imgStream, cssStream);
     });
   }); // sprites END

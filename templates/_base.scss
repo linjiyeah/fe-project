@@ -1,0 +1,112 @@
+@mixin oocss-gutter($gutterSize:5px, $gutterCount: 6) {
+  $directions: ( (short:t, long:top), (short:r, long:right), (short:b, long:bottom), (short:l, long:left) );
+  @for $i from 0 through $gutterCount {
+    .m#{$i} {
+      margin: $gutterSize*$i !important;
+    }
+
+    .p#{$i} {
+      padding: $gutterSize*$i !important;
+    }
+
+    .mv#{$i} {
+      margin-top: $gutterSize*$i !important;
+      margin-bottom: $gutterSize*$i !important;
+    }
+
+    .mh#{$i} {
+      margin-right: $gutterSize*$i !important;
+      margin-left: $gutterSize*$i !important;
+    }
+
+    .pv#{$i} {
+      padding-top: $gutterSize*$i !important;
+      padding-bottom: $gutterSize*$i !important;
+    }
+
+    .ph#{$i} {
+      padding-right: $gutterSize*$i !important;
+      padding-left: $gutterSize*$i !important;
+    }
+
+    @each $direction in $directions {
+      $short: map-get($direction, 'short');
+      $long: map-get($direction, 'long');
+      .m#{$short}#{$i} {
+        margin-#{$long}: $gutterSize*$i !important;
+      }
+
+      .p#{$short}#{$i} {
+        padding-#{$long}: $gutterSize*$i !important;
+      }
+    }
+  }
+}
+
+@function tint($color, $percentage) {
+  @return mix(#fff, $color , $percentage);
+}
+@function shade($color, $percentage) {
+  @return mix(#000, $color , $percentage);
+}
+
+@mixin font-smoothing {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@mixin placeholder ($color: #888){
+  ::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: #888 !important;
+  }
+
+  :-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #888 !important;
+  }
+
+  ::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #888 !important;
+  }
+
+  :-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: #888 !important;
+  }
+}
+
+%ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+%cf,
+%clearfix, {
+  &::before {
+    display: table;
+    content: '';
+  }
+
+  &::after {
+    display: table;
+    clear: both;
+    content: '';
+  }
+}
+
+%vertical-middle-container {
+  &::after {
+    display: inline-block;
+    overflow: hidden;
+    width: 0;
+    height: 100%;
+    content: '';
+    vertical-align: middle;
+  }
+}
