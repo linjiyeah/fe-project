@@ -1,9 +1,7 @@
 {
-  "name": "@tencent/gulp-ui-task",
-  "version": "1.8.1",
+  "name": "fe-project",
+  "version": "1.0.0",
   "description": "Froent-end automating tasks for sprites, sass, render html and more.",
-  "main": "lib/index.js",
-  "jsnext:main": "src/index.js",
   "babel": {
     "plugins": [
       "add-module-exports"
@@ -49,7 +47,7 @@
     "yargs": "^7.1.0"
   },
   "author": "linjilin_at_tencent",
-  "license": "ISC",
+  "license": "MIT",
   "files": [
     "lib",
     "templates"
@@ -65,10 +63,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/linjiyeah/gulp-ui-task.git"
+    "url": "git+https://github.com/linjiyeah/fe-project.git"
   },
   "bugs": {
-    "url": "https://github.com/linjiyeah/gulp-ui-task/issues"
+    "url": "https://github.com/linjiyeah/fe-project/issues"
   },
-  "homepage": "https://github.com/linjiyeah/gulp-ui-task#readme"
+  "homepage": "https://github.com/linjiyeah/fe-project#readme"
 }

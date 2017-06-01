@@ -115,7 +115,7 @@ export default function(cfg, gulp) {
   gulp.task('build-css', () => {
     gulp
       .src([`${cfg.dist_css}/**/*.css`, `!${cfg.dist_css}/**/*.min.css`])
-      .pipe(newer({dest: dist_css, ext: '.min.css'}))
+      .pipe(newer({dest: cfg.dist_css, ext: '.min.css'}))
       .pipe(postcss([
         autoprefixer({
           browsers: ['defaults', 'ie >= 8']
