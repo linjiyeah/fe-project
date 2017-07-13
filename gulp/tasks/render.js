@@ -131,7 +131,7 @@ module.exports = function(cfg, gulp) {
   gulp
     .task('render', function() {
       var glob = currentView || viewsGlob;
-      console.log(JSON.stringify(glob).green);
+      // use gulp-replace 去替换路径？？？
       gulp
         .src(glob)
         .pipe(plumber())

@@ -1,0 +1,62 @@
+$spriteSvg: "{{{spritesRelative}}}/sprites" !default;
+
+{{#hasMixin}}
+  @mixin {{mixinName}} {
+    background: url("{{{sprite}}}") no-repeat;
+  }
+  {{#hasCommon}}
+    .{{commonName}} {
+      @include {{mixinName}};
+    }
+  {{/hasCommon}}
+{{/hasMixin}}
+{{^hasMixin}}
+%sprites-{{spriteBaseName}}-common {
+  display: inline-block;
+  background-image: url(#{$spriteSvg}/{{spriteBaseName}}.png);
+  background-image: -webkit-image-set(url(#{$spriteSvg}/{{spriteBaseName}}.png) 1x, url(#{$spriteSvg}/{{sprite}}) 2x);
+  background-repeat: no-repeat;
+}
+{{/hasMixin}}
+
+$sprites-{{spriteBaseName}}: (
+{{#shapes}}
+  {{name}}: (width: {{width.inner}}px, height: {{height.inner}}px, x: {{#cal}}{{position.absolute.x}}-2{{/cal}}px, y: {{#cal}}{{position.absolute.y}}-2{{/cal}}px){{^last}},{{/last}}
+{{/shapes}}
+);
+
+@mixin sprite-{{spriteBaseName}}($name, $width: auto, $height: auto, $absolute: false) {
+  $sprite: map-get($sprites-{{spriteBaseName}}, $name);
+  @extend %sprites-{{spriteBaseName}}-common;
+  
+  @if $absolute != false {
+    background-position: map-get($sprite, x) map-get($sprite, y);
+    background-size: {{spriteWidth}}px {{spriteHeight}}px;
+  } @else{
+    background-position: map-get($sprite, x)/(map-get($sprite, width)-{{spriteWidth}}px)*100% map-get($sprite, y)/(map-get($sprite, height)-{{spriteHeight}}px)*100%;
+    background-size: ({{spriteWidth}}px / map-get($sprite, width)) * 100% ({{spriteHeight}}px / map-get($sprite, height)) * 100%;
+  }
+
+  @if $width != auto {
+    width: $width;
+  } @else if $width == none {
+    // width none
+  } @else {
+    width: map-get($sprite, width);
+  }
+  @if $height !=auto {
+    height: $height;
+  } @else if $height == none {
+    // height none
+  } @else {
+    height: map-get($sprite, height);
+  }
+}
+
+@mixin all-sprite-{{spriteBaseName}}{
+  {{#shapes}}
+  {{#selector.shape}}{{expression}}{{^last}},{{/last}}{{/selector.shape}}{
+    @include sprite-{{spriteBaseName}}({{name}});
+  }
+  {{/shapes}}
+}

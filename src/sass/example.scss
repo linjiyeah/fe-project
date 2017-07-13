@@ -1,13 +1,27 @@
 @import './_utils.scss';
 
-@include oocss-gutter($gutterSize:5px, $gutterCount: 6);
+@include oocss-gutter($gutterSize: 5px, $gutterCount: 6);
 @include font-smoothing;
 @include placeholder(#999);
 
-.cf{
+.cf {
   @extend %cf;
 }
 
-.ellipsis{
+.ellipsis {
   @extend %ellipsis;
 }
+
+
+// $spriteSvg: ''; // 雪碧图生成位置
+@import '../../dist/img/sprites/_svg-icon.scss';
+
+.svg-resource {
+  @include sprite-svg-icon(resource, 20rem, 18rem);
+}
+
+.svg-logo {
+  @include sprite-svg-icon(logo, $absolute: true);
+}
+
+@include all-sprite-svg-icon;

@@ -50,9 +50,14 @@ $sprite: '../img/sprites' !default;
   {{/if}}
   $temp: ${{spritesheet_info.name}}-sprites;
   $temp-item: map-get($temp, $dir);
-  width: nth($temp-item, 5);
-  height: nth($temp-item, 6);
-  background-position: nth($temp-item, 3) nth($temp-item, 4);
+  @if $temp-item {
+    width: nth($temp-item, 5);
+    height: nth($temp-item, 6);
+    background-position: nth($temp-item, 3) nth($temp-item, 4);
+  }
+  @else{
+    @debug cannot find any pictures named '#{$dir}';
+  }
 }
 
 // 移动端采用rem作为单位还原设计稿时所用

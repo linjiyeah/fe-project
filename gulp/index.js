@@ -101,15 +101,13 @@ export default function(cfg, gulp) {
   guide(cfg, gulp);
 
   /* clean build */
-  gulp.task('clean', () => {
-    del([`${cfg.dist}/**/*.css`, `${cfg.dist}/**/*.js`]).then(paths => {
-      console.log(`Deleted files and folders:\n${paths.join('\n')}`.bgRed);
-    })
-  });
+  // gulp.task('clean', () => {
+  //   del([`${cfg.dist}/**/*.css`, `${cfg.dist}/**/*.js`]).then(paths => {
+  //     console.log(`Deleted files and folders:\n${paths.join('\n')}`.bgRed);
+  //   })
+  // });
 
-  /**
-   * build
-   */
+  /* build */
   gulp.task('build', ['build-css', 'build-js']);
 
   gulp.task('build-css', () => {
@@ -136,7 +134,7 @@ export default function(cfg, gulp) {
 
   gulp.task('build-js', () => {
     gulp
-      .src(`${cfg.dist_js}/**/*.js`)
+      .src([`${cfg.dist_js}/**/*.js`, `!${cfg.dist_js}/**/*.min.js`])
       .pipe(uglify())
       .pipe(rename(path => {
         path.basename += '.min';
