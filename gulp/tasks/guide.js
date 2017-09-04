@@ -43,10 +43,9 @@ module.exports = function(cfg, gulp) {
   //遍历目录下的文件生成页面目录结构对象
   gulp.task('guide', () => {
 
-    // let test = getAllFiles(cfg.dir_pages, function(){
+    // let test = getAllFiles(cfg.dist_html, function(file){
+    //   console.log(file);
     // });
-    // console.log(test);
-    // return;
 
     var data = {
       data: explorer(cfg.dist_html)

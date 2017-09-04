@@ -20,6 +20,10 @@
   @include sprite-svg-icon(resource, 20rem, 18rem);
 }
 
+.svg-logo-rem {
+  @include sprite-svg-icon(logo, 5.7rem, 1.7rem);
+}
+
 .svg-logo {
   @include sprite-svg-icon(logo, $absolute: true);
 }

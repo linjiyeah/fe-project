@@ -1,20 +1,6 @@
 import path from 'path';
 import chalk from 'chalk';
-import newer from 'gulp-newer';
-
-import plumber from 'gulp-plumber';
-import sourcemaps from 'gulp-sourcemaps';
-
-import uglify from 'gulp-uglify';
-
 import del from 'del';
-
-import babel from 'gulp-babel';
-import browserify from 'gulp-browserify';
-import rename from 'gulp-rename';
-
-import sass from 'gulp-sass';
-import postcss from 'gulp-postcss';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
 
@@ -24,7 +10,12 @@ import image from './tasks/image';
 import render from './tasks/render';
 import sprites from './tasks/sprites';
 
+import gulpLoadPlugins from 'gulp-load-plugins';
+const G = gulpLoadPlugins();
+
+
 export default function(cfg, gulp) {
+
   // 初始化后的配置
   cfg = {
     src_html: cfg.src.html || './src/views',
@@ -40,6 +31,23 @@ export default function(cfg, gulp) {
     routes: cfg.routes || {}
   };
 
+
+    // TODO:
+    gulp.task('rev', function () {
+      return gulp.src([`${cfg.dist_js}/*.js`, `!${cfg.dist_js}/*-*.js`])
+        .pipe(G.rev())
+        .pipe(gulp.dest(cfg.dist_js))
+        .pipe(G.rev.manifest())
+        .pipe(gulp.dest(`${cfg.dist_js}/rev`));
+    });
+    gulp.task('revC', function () {
+      return gulp.src([`${cfg.dist_js}/rev/*.json`, `${cfg.dist_html}/**/*.html`])
+        .pipe(G.revCollector({
+          replaceReved: true,
+        }))
+        .pipe(gulp.dest(cfg.dist_html));
+    });
+
   // use chalk
   console.log(chalk.blue(JSON.stringify(cfg, null, '  ')));
   console.log(chalk.bgGreen(`You still need to run 'gulp build' to compress scripts and styles to dist.`));
@@ -54,44 +62,21 @@ export default function(cfg, gulp) {
   gulp.task('styles', () => {
     return gulp
       .src([`${cfg.src_css}/**/*.scss`])
-      .pipe(newer({dest: cfg.dist_css, ext: '.css'}))
-      .pipe(plumber())
-      .pipe(sourcemaps.init())
-      .pipe(sass(sassOption).on('error', sass.logError))
-      .pipe(sourcemaps.write('./maps'))
+      .pipe(G.newer({dest: cfg.dist_css, ext: '.css'}))
+      .pipe(G.plumber())
+      .pipe(G.sourcemaps.init())
+      .pipe(G.sass(sassOption).on('error', G.sass.logError))
+      .pipe(G.sourcemaps.write('./maps'))
       .pipe(gulp.dest(cfg.dist_css));
   });
   gulp.task('styles:force', () => {
     return gulp
       .src([`${cfg.src_css}/**/*.scss`])
-      .pipe(plumber())
-      .pipe(sourcemaps.init())
-      .pipe(sass(sassOption).on('error', sass.logError))
-      .pipe(sourcemaps.write('./maps'))
+      .pipe(G.plumber())
+      .pipe(G.sourcemaps.init())
+      .pipe(G.sass(sassOption).on('error', G.sass.logError))
+      .pipe(G.sourcemaps.write('./maps'))
       .pipe(gulp.dest(cfg.dist_css));
-  });
-
-  /**
-   * !!!
-   * babel-preset-es2015 会从使用该webkit的项目里找，而不会从这边找？？？
-   */
-  gulp.task('scripts', () => {
-    return gulp
-      .src([`${cfg.src_js}/**/*.babel.js`])
-      .pipe(rename(path => {
-        path.basename = path
-          .basename
-          .replace(/\.babel/, '')
-      }))
-      .pipe(newer({dest: cfg.dist_js}))
-      .pipe(plumber())
-      .pipe(sourcemaps.init())
-      .pipe(babel({
-        presets: ['es2015', 'stage-0']
-      }))
-      .pipe(browserify({insertGlobals: true, debug: true}))
-      .pipe(sourcemaps.write('./maps'))
-      .pipe(gulp.dest(cfg.dist_js));
   });
 
   browserSync(cfg, gulp);
@@ -111,10 +96,10 @@ export default function(cfg, gulp) {
   gulp.task('build', ['build-css', 'build-js']);
 
   gulp.task('build-css', () => {
-    gulp
+    return gulp
       .src([`${cfg.dist_css}/**/*.css`, `!${cfg.dist_css}/**/*.min.css`])
-      .pipe(newer({dest: cfg.dist_css, ext: '.min.css'}))
-      .pipe(postcss([
+      .pipe(G.newer({dest: cfg.dist_css, ext: '.min.css'}))
+      .pipe(G.postcss([
         autoprefixer({
           browsers: ['defaults', 'ie >= 8']
         }),
@@ -126,17 +111,17 @@ export default function(cfg, gulp) {
           zindex: false
         })
       ]))
-      .pipe(rename(path => {
+      .pipe(G.rename(path => {
         path.basename += '.min';
       }))
       .pipe(gulp.dest(cfg.dist_css))
   });
 
   gulp.task('build-js', () => {
-    gulp
+    return gulp
       .src([`${cfg.dist_js}/**/*.js`, `!${cfg.dist_js}/**/*.min.js`])
-      .pipe(uglify())
-      .pipe(rename(path => {
+      .pipe(G.uglify())
+      .pipe(G.rename(path => {
         path.basename += '.min';
       }))
       .pipe(gulp.dest(cfg.dist_js))

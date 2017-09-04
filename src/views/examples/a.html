@@ -3,11 +3,20 @@
   <head>
     <meta charset="utf-8">
     <title></title>
-    <link rel="stylesheet" href="/css/master.css">
+    <link rel="stylesheet" href="/css/example.css">
     <script type="text/javascript" src="/js/master.js"></script>
   </head>
-  <body>
-    <img src="/img/a.png" alt="">
-    a.html
+  <body style="background:#000">
+    <img src="/img/sprites/svg-icon.png" alt="">
+    <img src="/img/sprites/svg-icon.svg" alt="">
+    <i class="svg-logo"></i>
+    <i class="svg-logo-rem"></i>
+
+    {% svg src = "../../img/slice/svg-icon/logo.svg" %}{% endsvg %}
+    {% include "../../img/slice/svg-icon/logo.svg" %}
+    {# {% remote
+      src="http://10.123.5.151/rebuild/center/center2.0/widget/widget-evalua.html",
+      selector="1"%}
+    {% endremote %} #}
   </body>
 </html>

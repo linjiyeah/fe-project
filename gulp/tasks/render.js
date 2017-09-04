@@ -26,6 +26,14 @@ module.exports = function(cfg, gulp) {
         viewRelativeDir = (event.dirname + '/').replace(event.base, '');
         gulp.start('render');
       });
+      watch([
+        `${cfg.src_html}/_layouts/**/*.html`,
+        `${cfg.src_html}/_partials/**/*.html`
+        ], function(){
+          viewRelativeDir = '';
+          currentView = '';
+          gulp.start('render');
+      });
     });
 
   var currentView;
@@ -132,7 +140,7 @@ module.exports = function(cfg, gulp) {
     .task('render', function() {
       var glob = currentView || viewsGlob;
       // use gulp-replace 去替换路径？？？
-      gulp
+      return gulp
         .src(glob)
         .pipe(plumber())
         .pipe(nunjucksRender())

@@ -18,7 +18,10 @@ const config = {
     js: './dist/js'
   },
   // 执行 gulp dev 的路由
-  routes: {}
+  routes: {
+    '/css': './dist/css',
+    '/img': './dist/img'
+  }
 };
 
 gulpTask(config, gulp);

@@ -4,6 +4,13 @@ import path from 'path';
 
 module.exports = function(cfg, gulp) {
   gulp.task('demo', () => {
+    // path.relative('docs', '../src/main/v2/html');
+    // return;
+    cfg.routes['/' + cfg.dist_html.replace(/\.\.\//g, '')] = cfg.dist_html;
+    cfg.routes['/' + cfg.dist_img.replace(/\.\.\//g, '')] = cfg.dist_img;
+    cfg.routes['/' + cfg.dist_css.replace(/\.\.\//g, '')] = cfg.dist_css;
+    cfg.routes['/' + cfg.dist_js.replace(/\.\.\//g, '')] = cfg.dist_js;
+    // console.log(cfg.routes);
     browserSync.init({
       startPath: 'docs/index.html',
       server: {
@@ -30,7 +37,8 @@ module.exports = function(cfg, gulp) {
     });
   });
 
-  gulp.task('dev', ['clean'], () => {
+  // gulp.task('dev', ['clean'], () => {
+  gulp.task('dev', [], () => {
 
     // html
     if (cfg.dist_html) {
@@ -63,7 +71,8 @@ module.exports = function(cfg, gulp) {
 
     // js babel相关 watch tasks
     if (cfg.src_js) {
-      watch([`${cfg.src_js}/**/*.js`], event => gulp.start('scripts'));
+      // watch([`${cfg.src_js}/**/*.js`], event => gulp.start('scripts'));
+      gulp.start('watch:rollup');
     }
 
     // watch sprites
