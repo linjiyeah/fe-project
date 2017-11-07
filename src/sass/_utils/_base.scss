@@ -60,22 +60,22 @@
 @mixin placeholder ($color: #888){
   ::-webkit-input-placeholder {
     /* WebKit browsers */
-    color: #888 !important;
+    color: $color !important;
   }
 
   :-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
-    color: #888 !important;
+    color: $color !important;
   }
 
   ::-moz-placeholder {
     /* Mozilla Firefox 19+ */
-    color: #888 !important;
+    color: $color !important;
   }
 
   :-ms-input-placeholder {
     /* Internet Explorer 10+ */
-    color: #888 !important;
+    color: $color !important;
   }
 }
 

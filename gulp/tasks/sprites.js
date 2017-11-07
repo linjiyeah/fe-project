@@ -16,43 +16,6 @@ const stream = require('stream');
 const svgSprite = require('gulp-svg-sprite');
 const glob = require('glob');
 module.exports = function(cfg, gulp) {
-  const options = {
-    shape: {
-      spacing: {
-        padding: 2 // 暂不知为何每次会变为一个对象
-      },
-      dimension: {
-        precision: 0
-      }
-    },
-    variables: {
-      spritesRelative: path.relative(cfg.dist_css, cfg.dist_img), // 图片相对样式的默认相对路径
-      cal: function() {
-        return function(text, render) {
-          const expression = render(text);
-          return eval(expression);
-        }
-      }
-    }, // custom templating varibles
-    svg: {
-      precision: 0
-    },
-    mode: {
-      css: {
-        dest: '',
-        prefix: '.svg-%s',
-        dimensions: true, // true - dimensions.inline, String - dimensions.extra, false - nothing
-        sprite: 'sprite.svg',
-        bust: false, // hash
-        render: {
-          scss: {
-            template: './gulp/templates/svg-sprite.scss',
-            dest: '../_sprite.scss'
-          }
-        }
-      }
-    }
-  };
   gulp.task('watch-sprites:svg', function() {
     watch([`${cfg.src_img}/slice/**/*.svg`], function(event) {
       // console.log(event.base); // 通配符前面的内容 // console.log(event.path); // 匹配到的文件路径
@@ -67,6 +30,45 @@ module.exports = function(cfg, gulp) {
     });
   });
   function generateSvgSprite(dir) {
+
+    const options = {
+      shape: {
+        spacing: {
+          padding: 2 // 暂不知为何每次会变为一个对象
+        },
+        dimension: {
+          precision: 0
+        }
+      },
+      variables: {
+        spritesRelative: path.relative(cfg.dist_css, cfg.dist_img), // 图片相对样式的默认相对路径
+        cal: function() {
+          return function(text, render) {
+            const expression = render(text);
+            return eval(expression);
+          }
+        }
+      }, // custom templating varibles
+      svg: {
+        precision: 0
+      },
+      mode: {
+        css: {
+          dest: '',
+          prefix: '.svg-%s',
+          dimensions: true, // true - dimensions.inline, String - dimensions.extra, false - nothing
+          sprite: 'sprite.svg',
+          bust: false, // hash
+          render: {
+            scss: {
+              template: './gulp/templates/svg-sprite.scss',
+              dest: '../_sprite.scss'
+            }
+          }
+        }
+      }
+    };
+
     const name = path.basename(dir);
     const curOptions = Object.assign({}, options);
     curOptions.shape.spacing.padding = 2;

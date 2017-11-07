@@ -10,7 +10,7 @@ module.exports = function(cfg, gulp) {
     cfg.routes['/' + cfg.dist_img.replace(/\.\.\//g, '')] = cfg.dist_img;
     cfg.routes['/' + cfg.dist_css.replace(/\.\.\//g, '')] = cfg.dist_css;
     cfg.routes['/' + cfg.dist_js.replace(/\.\.\//g, '')] = cfg.dist_js;
-    // console.log(cfg.routes);
+    console.log(cfg.routes);
     browserSync.init({
       startPath: 'docs/index.html',
       server: {

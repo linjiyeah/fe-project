@@ -23,7 +23,7 @@ module.exports = function(cfg, gulp) {
       watch(viewsGlob, function(event) {
         currentView = event.path;
         // 输出相对views目录的路径
-        viewRelativeDir = (event.dirname + '/').replace(event.base, '');
+        viewRelativeDir = path.relative(cfg.src_html, event.dirname);
         gulp.start('render');
       });
       watch([
@@ -117,16 +117,29 @@ module.exports = function(cfg, gulp) {
   env.addExtension('SvgExtension', new SvgExtension());
   // END
 
+  // const absCss = path.resolve(process.cwd(), cfg.src_html);
   function nunjucksRender(obj) {
     var newStream = new stream.Transform({objectMode: true});
     newStream._transform = function(chunk, encoding, done) {
-      tempPath = chunk.path;
       nunjucks.render(chunk.path, function(err, res) {
         if (err) {
           console.log(err);
           done();
         } else {
-          chunk.contents = new Buffer(res.replace(/\r\n/g, '\n'));
+          // 把html的绝对路径引用转换为相对路径
+          const ouputDir = path.dirname(chunk.path);
+          const output =  cfg.dist_html + '/' + path.relative(cfg.src_html, ouputDir);
+
+          let relativeImg = path.relative(output, cfg.dist_img);
+          let relativeCss = path.relative(output, cfg.dist_css);
+          let relativeJs = path.relative(output, cfg.dist_js);
+          let relativeHtml = path.relative(output, cfg.dist_html);
+          res = res.replace(/(src=".+)\/img/g, '$1'+ relativeImg);
+          res = res.replace(/(href=".+)\/css/g, '$1'+ relativeCss);
+          res = res.replace(/(src=".+)\/js/g, '$1'+ relativeJs);
+          res = res.replace(/(src=".+)\/html/g, '$1'+ relativeHtml);
+
+          chunk.contents = new Buffer(res);
           done(null, chunk);
         }
       });

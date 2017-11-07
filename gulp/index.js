@@ -92,6 +92,69 @@ export default function(cfg, gulp) {
   //   })
   // });
 
+  // TODO:
+  var path = require('path');
+  var rollup = require('rollup-stream'); // 本体
+  var sourcemaps = require('gulp-sourcemaps'); // sourcemaps
+  var source = require('vinyl-source-stream'); // 转stream
+  var buffer = require('vinyl-buffer'); // 转buffer
+  var babel = require('gulp-babel'); // babel
+  var watch = require('gulp-watch');
+  var gutil = require('gulp-util'); // 容错处理
+  const commonjs = require('rollup-plugin-commonjs'); // 支持commonjs的模块，例如jquery
+  const resolve = require('rollup-plugin-node-resolve'); // 需要引用node_modules时用
+
+  var target;
+  gulp.task('watch:rollup', function() {
+    watch(`${cfg.src_js}/*.js`, (event) => {
+      if (event.event == 'change') {
+        target = event.path;
+        gulp.start('rollup');
+      }
+    });
+  });
+  var cache;
+  gulp.task('rollup', function() {
+    var dir = path.dirname(target);
+    var file = path.basename(target);
+    return rollup({
+      entry: `${dir}/${file}`,
+      sourceMap: true,
+      format: 'iife', // 用自执行函数包裹代码供<script>使用
+      cache: cache,
+      plugins: [
+        commonjs(),
+        resolve()
+      ]
+    })
+      .on('error', function(err) {
+        gutil.log('rollup Error!', err.message);
+        this.emit('end');
+      })
+
+      // for cache
+      .on('bundle', function(bundle) {
+        cache = bundle;
+      })
+
+      // point to the entry file.
+      .pipe(source(`${file}`, `${dir}`))
+
+      // buffer the output. most gulp plugins, including gulp-sourcemaps, don't support streams.
+      .pipe(buffer())
+
+      // tell gulp-sourcemaps to load the inline sourcemap produced by rollup-stream.
+      .pipe(sourcemaps.init({loadMaps: true}))
+      .pipe(babel({
+        presets: ['es2015', 'stage-0']
+      }))
+      // transform the code further here. if you want to output with a different name
+      // from the input file, use gulp-rename here.
+      /*.pipe(rename('index.js'))*/
+      .pipe(sourcemaps.write('./maps'))
+      .pipe(gulp.dest(cfg.dist_js));
+  });
+
   /* build */
   gulp.task('build', ['build-css', 'build-js']);
 
