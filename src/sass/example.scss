@@ -1,4 +1,4 @@
-@import './_utils.scss';
+@import './_utils/_base.scss';
 
 @include oocss-gutter($gutterSize: 5px, $gutterCount: 6);
 @include font-smoothing;
@@ -18,6 +18,10 @@
 
 .svg-resource {
   @include sprite-svg-icon(resource, 20rem, 18rem);
+}
+
+.svg-logo-rem {
+  @include sprite-svg-icon(logo);
 }
 
 .svg-logo-rem {

@@ -13,6 +13,9 @@ gulp dev
 gulp build
 ```
 
+```
+gulp sprites:svg
+```
 
 ---
 创建 gulpfile.js

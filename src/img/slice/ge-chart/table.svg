@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>table</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="模板编辑" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-409.000000, -113.000000)">
+        <path d="M424,123 L418,123 L418,135 L416,135 L416,130 L411,130 L411,134 C411,134.552285 411.447715,135 412,135 L430,135 C430.552285,135 431,134.552285 431,134 L431,130 L426,130 L426,135 L424,135 L424,130 L418,130 L418,128 L424,128 L424,123 Z M426,123 L426,128 L431,128 L431,123 L426,123 Z M426,121 L431,121 L431,116 C431,115.447715 430.552285,115 430,115 L412,115 C411.447715,115 411,115.447715 411,116 L411,121 L416,121 L418,121 L424,121 L426,121 Z M416,130 L416,128 L411,128 L411,123 L416,123 Z M412,113 L430,113 C431.656854,113 433,114.343146 433,116 L433,134 C433,135.656854 431.656854,137 430,137 L412,137 C410.343146,137 409,135.656854 409,134 L409,116 C409,114.343146 410.343146,113 412,113 Z" id="table" fill="#838CC7"></path>
+    </g>
+</svg>

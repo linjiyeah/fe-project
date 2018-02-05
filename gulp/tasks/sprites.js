@@ -80,11 +80,12 @@ module.exports = function(cfg, gulp) {
       .src(`${dir}/*.svg`)
       .pipe(svgSprite(curOptions))
       .pipe(gulp.dest(`${cfg.dist_img}/sprites`))
-      .pipe(gulpif(function(file) {
+      
+      /*.pipe(gulpif(function(file) {
         if (path.extname(file.path) == '.svg') {
           return true;
         }
-      }, svgToPng()));
+      }, svgToPng()));*/
   }
   function svgToPng() {
     var newStream = new stream.Transform({objectMode: true});
@@ -140,7 +141,7 @@ module.exports = function(cfg, gulp) {
         // console.log(obj.cssTemsplate);
         return obj;
       }());
-      console.log(spriteOptions);
+      console.log(`${cfg.src_img}/sprites`);
       spriteData = gulp
         .src(dir + '/*.png')
         .pipe(spritesmith(spriteOptions));
@@ -149,7 +150,7 @@ module.exports = function(cfg, gulp) {
         .pipe(gulp.dest(`${cfg.dist_img}/sprites`));
       var cssStream = spriteData
         .css
-        .pipe(gulp.dest(`${cfg.src_css}/sprites`));
+        .pipe(gulp.dest(`${cfg.dist_img}/sprites`));
       return mergeStream(imgStream, cssStream);
     });
   }); // sprites END
