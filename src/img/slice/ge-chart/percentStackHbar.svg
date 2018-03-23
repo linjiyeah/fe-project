@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.1 (47250) - http://www.bohemiancoding.com/sketch -->
+    <title>percentStackHbar</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="视觉规范" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-2205.000000, -713.000000)">
+        <path d="M2210,733 L2208,733 L2208,718 L2208,716 L2216,716 L2216,717.5 L2216,733 L2214,733 L2210,733 Z M2210,731 L2214,731 L2214,718 L2210,718 L2210,731 Z M2220,733 L2218,733 L2218,724 L2218,722 L2226,722 L2226,724 L2226,733 L2224,733 L2220,733 Z M2220,731 L2224,731 L2224,724 L2220,724 L2220,731 Z M2205,735 L2229,735 L2229,737 L2205,737 L2205,735 Z M2218,719 L2226,719 L2226,721 L2218,721 L2218,719 Z M2218,716 L2226,716 L2226,718 L2218,718 L2218,716 Z M2208,713 L2216,713 L2216,715 L2208,715 L2208,713 Z" id="percentStackHbar" fill="#838CC7" transform="translate(2217.000000, 725.000000) rotate(-270.000000) translate(-2217.000000, -725.000000) "></path>
+    </g>
+</svg>

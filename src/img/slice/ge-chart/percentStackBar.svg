@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.1 (47250) - http://www.bohemiancoding.com/sketch -->
+    <title>percentStackBar</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="视觉规范" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-2049.000000, -713.000000)">
+        <path d="M2055,721 L2059,721 L2061,721 L2061,735 L2063,735 L2063,726 L2065,726 L2069,726 L2071,726 L2071,735 L2073,735 L2073,737 L2049,737 L2049,735 L2049,713 L2051,713 L2051,735 L2053,735 L2053,721 L2055,721 Z M2055,723 L2055,735 L2059,735 L2059,723 L2055,723 Z M2069,728 L2065,728 L2065,735 L2069,735 L2069,728 Z M2063,723 L2071,723 L2071,725 L2063,725 L2063,723 Z M2063,720 L2071,720 L2071,722 L2063,722 L2063,720 Z M2053,718 L2061,718 L2061,720 L2053,720 L2053,718 Z" id="percentStackBar" fill="#838CC7"></path>
+    </g>
+</svg>

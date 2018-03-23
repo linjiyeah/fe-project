@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="24px" viewBox="0 0 20 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.1 (47250) - http://www.bohemiancoding.com/sketch -->
+    <title>wordcloud</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="视觉规范" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-1530.000000, -787.000000)">
+        <g id="wordcloud" transform="translate(1530.000000, 787.000000)" fill="#838CC7">
+            <rect id="Rectangle-31" x="9" y="13" width="2" height="1"></rect>
+            <path d="M0,3 C-2.02906125e-16,1.34314575 1.34314575,-1.39730022e-16 3,-4.4408921e-16 L18,-4.4408921e-16 L19,0 C19.5522847,0 20,0.44771525 20,1 C20,1.55228475 19.5522847,2 19,2 L3.0191489,2 C2.46686415,2 2.0191489,2.44771525 2.0191489,3 C2.0191489,3.55228475 2.46686415,4 3.0191489,4 L19,4 C19.5522847,4 20,4.44771525 20,5 L20,23 C20,23.5522847 19.5522847,24 19,24 L1,24 C0.44771525,24 6.76353751e-17,23.5522847 0,23 L0,5 L0,3 Z M2,6 L2,21 C2,21.5522847 2.44771525,22 3,22 L17,22 C17.5522847,22 18,21.5522847 18,21 L18,6 L2,6 Z" id="Combined-Shape"></path>
+            <path d="M5.911,11 L6.842,11 L8.753,15.998 L7.878,15.998 L7.423,14.745 L5.33,14.745 L4.875,15.998 L4,15.998 L5.911,11 Z M5.575,14.073 L7.178,14.073 L6.394,11.882 L6.366,11.882 L5.575,14.073 Z M11.469,11 L15.214,11 L15.214,11.651 L12.33,15.298 L15.382,15.298 L15.382,15.998 L11.259,15.998 L11.259,15.354 L14.15,11.7 L11.469,11.7 L11.469,11 Z" id="A-Z" stroke="#838CC7" stroke-width="0.5"></path>
+        </g>
+    </g>
+</svg>
