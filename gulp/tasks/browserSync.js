@@ -3,20 +3,18 @@ import browserSync, {reload} from 'browser-sync';
 import path from 'path';
 
 module.exports = function(cfg, gulp) {
+
   gulp.task('demo', () => {
-    // path.relative('docs', '../src/main/v2/html');
-    // return;
-    cfg.routes['/' + cfg.dist_html.replace(/\.\.\//g, '')] = cfg.dist_html;
-    cfg.routes['/' + cfg.dist_img.replace(/\.\.\//g, '')] = cfg.dist_img;
-    cfg.routes['/' + cfg.dist_css.replace(/\.\.\//g, '')] = cfg.dist_css;
-    cfg.routes['/' + cfg.dist_js.replace(/\.\.\//g, '')] = cfg.dist_js;
     console.log(cfg.routes);
     browserSync.init({
       startPath: 'docs/index.html',
       server: {
         baseDir: './',
         routes: {
-          // '/docs': './docs',
+          '/html': cfg.dist_html,
+          '/img': cfg.dist_img,
+          '/css': cfg.dist_css,
+          '/js': cfg.dist_js,
           ...cfg.routes
         },
         browser: 'default',
@@ -24,6 +22,21 @@ module.exports = function(cfg, gulp) {
       },
       ghostMode: false,
       notify: false,
+      rewriteRules: [
+        {
+          match: /(src=").*\/html\//g,
+          replace: '$1/html/'
+        }, {
+          match: /(src=").*\/img\//g,
+          replace: '$1/img/'
+        }, {
+          match: /(href=").*\/css\//g,
+          replace: '$1/css/'
+        }, {
+          match: /(src=").*\/js\//g,
+          replace: '$1/js/'
+        }
+      ],
       // 代码片段插入配置... ignorePaths: ignore all HTML files within the templates folder
       snippetOptions: {
         ignorePaths: 'docs/*.html',

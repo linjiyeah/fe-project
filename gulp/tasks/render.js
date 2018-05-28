@@ -130,14 +130,14 @@ module.exports = function(cfg, gulp) {
           const ouputDir = path.dirname(chunk.path);
           const output =  cfg.dist_html + '/' + path.relative(cfg.src_html, ouputDir);
 
+          let relativeHtml = path.relative(output, cfg.dist_html);
           let relativeImg = path.relative(output, cfg.dist_img);
           let relativeCss = path.relative(output, cfg.dist_css);
           let relativeJs = path.relative(output, cfg.dist_js);
-          let relativeHtml = path.relative(output, cfg.dist_html);
-          res = res.replace(/(src=".+)\/img/g, '$1'+ relativeImg);
-          res = res.replace(/(href=".+)\/css/g, '$1'+ relativeCss);
-          res = res.replace(/(src=".+)\/js/g, '$1'+ relativeJs);
-          res = res.replace(/(src=".+)\/html/g, '$1'+ relativeHtml);
+          res = res.replace(/(src=")\/html/g, '$1'+ relativeHtml);
+          res = res.replace(/(src=")\/img/g, '$1'+ relativeImg);
+          res = res.replace(/(href=")\/css/g, '$1'+ relativeCss);
+          res = res.replace(/(src=")\/js/g, '$1'+ relativeJs);
 
           chunk.contents = new Buffer(res);
           done(null, chunk);
