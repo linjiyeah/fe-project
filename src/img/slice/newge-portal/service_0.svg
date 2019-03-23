@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="79px" height="79px" viewBox="0 0 79 79" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>service_0_slice</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="19.1781902%" y1="85.041891%" x2="94.0365495%" y2="0%" id="linearGradient-1">
+            <stop stop-color="#A08EFF" offset="0%"></stop>
+            <stop stop-color="#764DFF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" fill-rule="nonzero">
+            <g id="service_0">
+                <circle id="Oval-5" fill="url(#linearGradient-1)" cx="39.1959799" cy="39.1959799" r="39.1959799"></circle>
+                <g id="shujuguanli" transform="translate(19.000000, 20.000000)" stroke="#FFFFFF">
+                    <path d="M0.833957019,38.3620229 L38.1470188,38.3620229" id="Path-43" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <rect id="Rectangle-11" stroke-width="3" x="1.5" y="17.3451834" width="5.33957019" height="14.5130974" rx="2.6697851"></rect>
+                    <rect id="Rectangle-11-Copy" stroke-width="3" x="11.7854699" y="4.83582808" width="5.33957019" height="27.0224527" rx="2.6697851"></rect>
+                    <rect id="Rectangle-11-Copy-2" stroke-width="3" x="22.0709398" y="9.00561317" width="5.33957019" height="22.8526676" rx="2.6697851"></rect>
+                    <rect id="Rectangle-11-Copy-3" stroke-width="3" x="32.3564097" y="1.5" width="5.33957019" height="30.3582808" rx="2.6697851"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

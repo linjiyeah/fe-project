@@ -13,7 +13,13 @@ gulp dev
 gulp build
 ```
 
-```
+```bash
+# 监听sprites变化 png
+gulp watch-spriets
+gulp sprites
+
+# 监听svg变化
+gulp watch-sprites:svg
 gulp sprites:svg
 ```
 
